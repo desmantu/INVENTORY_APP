@@ -15,6 +15,20 @@ class HomePageController extends GetxController {
   void onInit() async {
     // TODO: implement onInit
     getDashboardItem();
+    getDashboardCategory();
+  }
+
+  Color buildCategoryColor(String category) {
+    switch (category) {
+      case "Elektronik":
+        return  Colors.blue;
+      case "Furniture":
+        return  Colors.green;
+      case "ATK":
+        return Colors.amber;
+      default:
+      return Colors.grey;
+    }
   }
 
   Icon buildCategoryIcon(String category) {
@@ -39,10 +53,11 @@ class HomePageController extends GetxController {
       },
       (r) {
         dashboardBarangModel = r;
+        isLoading.value = false;
       },
     );
 
-    isLoading.value = false;
+
   }
 
   void getDashboardCategory() async {
@@ -54,9 +69,10 @@ class HomePageController extends GetxController {
       },
       (r) {
         listDashboardCategory = r;
+        isLoading.value = false;
+
       },
     );
 
-    isLoading.value = false;
   }
 }

@@ -3,13 +3,13 @@ import 'dart:ffi';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:notes_app/application/homepage/home_page_controller.dart';
+import 'package:notes_app/config/app_routes.dart';
 import 'package:notes_app/custom/custom_loading.dart';
 import 'package:notes_app/custom/shimmer_loading.dart';
 import 'package:notes_app/models/dashboard_category_barang_model.dart';
 
 class HomePage extends GetView<HomePageController> {
   const HomePage({Key? key}) : super(key: key);
-
 
   Widget buildTitle({required String title}) {
     return Container(
@@ -131,61 +131,73 @@ class HomePage extends GetView<HomePageController> {
   }
 
   Widget buildCardCategory({
+    required DashboardCategoryBarangModel model,
     required String category,
     required String total,
     required Icon icon,
+    required Color color,
   }) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 25),
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(color: Colors.black12.withAlpha(1), offset: Offset(1, 2)),
-        ],
-        border: BoxBorder.symmetric(
-          horizontal: BorderSide(
-            width: 0.5,
-            color: Colors.black.withOpacity(0.1),
+    return InkWell(
+      onTap: () {
+        print("ON TAP >> $category");
+        Get.toNamed(RouteName.showBarangPage, arguments: {
+          "id_category" : model.idCategory,
+          "title" : category,
+          "color" : color
+        });
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 25),
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(color: Colors.black12.withAlpha(1), offset: Offset(1, 2)),
+          ],
+          border: BoxBorder.symmetric(
+            horizontal: BorderSide(
+              width: 0.5,
+              color: Colors.black.withOpacity(0.1),
+            ),
           ),
+          borderRadius: BorderRadius.circular(15),
+          color: Colors.white10,
         ),
-        borderRadius: BorderRadius.circular(15),
-        color: Colors.white10,
-      ),
-      height: 100,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            child: Row(
-              children: [
-                Container(child: icon),
-                SizedBox(width: 20),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      category,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: const Color.fromARGB(255, 39, 39, 39),
+        height: 100,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              child: Row(
+                children: [
+                  Container(child: icon),
+                  SizedBox(width: 20),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        category,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: const Color.fromARGB(255, 39, 39, 39),
+                        ),
                       ),
-                    ),
-                    Text(total, style: TextStyle(fontSize: 14)),
-                  ],
-                ),
-              ],
+                      Text(total, style: TextStyle(fontSize: 14)),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
 
-          Container(
-            child: Icon(
-              Icons.arrow_forward_ios_rounded,
-              color: const Color.fromARGB(255, 43, 43, 43),
+            Container(
+              child: Icon(
+                Icons.arrow_forward_ios_rounded,
+                color: const Color.fromARGB(255, 43, 43, 43),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -247,35 +259,29 @@ class HomePage extends GetView<HomePageController> {
                   ),
                 ],
               ),
+              const SizedBox(height: 40),
+              buildTitle(title: "Kategori"),
+              if (controller.isLoading.value)
+                ...List.generate(5, (index) {
+                  return customLoading.cardLoading();
+                }),
 
-              SizedBox(height: 40),
-              InkWell(
-                onTap: () {
-                  controller.getDashboardCategory();
-                },
-                child: buildTitle(title: "Kategori"),
-              ),
-
-              if(controller.listDashboardCategory.isEmpty)
-              ...List.generate(5, (
-                index,
-              ) {
-                return customLoading.cardLoading();
-              }),
-               
+              if(controller.listDashboardCategory.isNotEmpty)
               ...List.generate(controller.listDashboardCategory.length ?? 0, (
                 index,
               ) {
                 DashboardCategoryBarangModel model =
                     controller.listDashboardCategory[index];
                 return buildCardCategory(
+                  model: model,
                   category: model.nameCategory ?? "",
                   total: "${model.totalBarang ?? 0} Barang ",
                   icon: controller.buildCategoryIcon(model.nameCategory ?? ""),
+                  color: controller.buildCategoryColor(model.nameCategory ?? ""),
                 );
-              }) ,
+              }),
               SizedBox(height: 100),
-              
+
               SizedBox(height: 200),
             ],
           ),
