@@ -1,0 +1,61 @@
+{
+    "data": [
+        {
+            "idNameCategory": {
+                "id": "f088a1b3-3438-4998-8d8e-2515df660548",
+                "name": "Elektronik"
+            },
+            "idNameState": {
+                "id": "6b31fd0d-7d0b-4651-b061-572e49cc1edd",
+                "name": "Rusak"
+            },
+            "sysIdTrBarang": "092f8f47-1b44-4f7c-8033-e589d6e51d34",
+            "number": "INV-000003",
+            "nameTrBarang": "Server Cloning",
+            "merk": "ASUS",
+            "tipe": "PC",
+            "serialNumber": "PC-2023-001",
+            "tanggalPembelian": "Jul 15, 2026, 2:09:15 PM",
+            "harga": 7500000.00,
+            "keterangan": "Komputer Server kebutuhan operasional kantor"
+        },
+        {
+            "idNameCategory": {
+                "id": "f088a1b3-3438-4998-8d8e-2515df660548",
+                "name": "Elektronik"
+            },
+            "idNameState": {
+                "id": "23b9ce5e-fcae-4534-81ca-4dbc316ae88b",
+                "name": "Dipinjam"
+            },
+            "sysIdTrBarang": "a4362aa7-b6cb-42d4-90c1-181106763241",
+            "number": "INV-000002",
+            "nameTrBarang": "Laptop Axioo",
+            "merk": "AXIOO",
+            "tipe": "Hype AMD",
+            "serialNumber": "AXIOO-AMD-2023-001",
+            "tanggalPembelian": "Jul 15, 2026, 2:08:15 PM",
+            "harga": 7500000.00,
+            "keterangan": "Laptop untuk kebutuhan operasional kantor"
+        },
+        {
+            "idNameCategory": {
+                "id": "f088a1b3-3438-4998-8d8e-2515df660548",
+                "name": "Elektronik"
+            },
+            "idNameState": {
+                "id": "82adc96f-08a1-45a4-bb1a-310ea06eef84",
+                "name": "Tersedia"
+            },
+            "sysIdTrBarang": "cdd14169-1354-4c77-8a0a-c65b0fbf4199",
+            "number": "INV-000001",
+            "nameTrBarang": "Laptop ASUS",
+            "merk": "ASUS",
+            "tipe": "Vivobook 14",
+            "serialNumber": "ASUS14X-2023-001",
+            "tanggalPembelian": "Jul 15, 2026, 1:35:00 PM",
+            "harga": 7500000.00,
+            "keterangan": "Laptop untuk kebutuhan operasional kantor"
+        }
+    ]
+}
