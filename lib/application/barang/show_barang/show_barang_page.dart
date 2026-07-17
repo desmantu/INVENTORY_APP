@@ -120,14 +120,18 @@ class ShowBarangPage extends GetView<ShowBarangPageController> {
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: const Color.fromARGB(255, 239, 238, 238),
+                  color: const Color.fromARGB(255, 247, 247, 247),
                 ),
                 width: Get.width,
                 height: Get.height / 12,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(child: Icon(Icons.search)),
+                    Container(child: InkWell(
+                      onTap: () {
+                        controller.getShowListBarang();
+                      },
+                      child: Icon(Icons.search))),
                     SizedBox(width: 20),
                     Expanded(
                       child: Container(
@@ -138,6 +142,9 @@ class ShowBarangPage extends GetView<ShowBarangPageController> {
                             border: InputBorder.none,
                             hintText: "Cari barang...",
                           ),
+                          onSubmitted: (value) {
+                            controller.getShowListBarang();
+                          },
                           controller: controller.inpSearchBarang.value,
                         ),
                       ),

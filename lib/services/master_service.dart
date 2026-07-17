@@ -59,10 +59,16 @@ class MasterService extends MainService{
 
 
   Future<Either<String, List<BarangModel>>> getShowListBarang({
-    required String idCategory
+    required String idCategory,
+    String? searchQuery
   }) async {
     print("DESMANTU CEK MASUK SINI 1");
-    final uri = "$network/get-show-list-barang?id_category=$idCategory";
+    var uri = "$network/get-show-list-barang?id_category=$idCategory";
+    
+    if(searchQuery != null && searchQuery.isNotEmpty){
+      uri += "&search=" + searchQuery;
+    }
+    
     try {
     final data = await http.get(Uri.parse(uri));
     print("data ?? ${data.statusCode}" );

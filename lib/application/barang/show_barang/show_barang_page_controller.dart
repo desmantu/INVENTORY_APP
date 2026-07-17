@@ -49,7 +49,8 @@ Map renderColorState({
 
 void getShowListBarang() async {
     final result = await masterService.getShowListBarang(
-      idCategory: idCategory
+      idCategory: idCategory,
+      searchQuery: inpSearchBarang.value.text
     );
     result.fold(
       (l) {
