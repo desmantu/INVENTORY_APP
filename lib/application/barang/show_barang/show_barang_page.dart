@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:notes_app/application/barang/show_barang/show_barang_page_controller.dart';
+import 'package:notes_app/config/app_routes.dart';
 import 'package:notes_app/models/barang_model.dart';
 
 class ShowBarangPage extends GetView<ShowBarangPageController> {
@@ -12,83 +13,93 @@ class ShowBarangPage extends GetView<ShowBarangPageController> {
     required Color color
     }) {
     Map mapColor = controller.renderColorState(name: model.idNameState?.name ?? "");
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 25),
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(color: Colors.black12.withAlpha(1), offset: Offset(1, 2)),
-        ],
-        border: BoxBorder.symmetric(
-          horizontal: BorderSide(
-            width: 0.5,
-            color: Colors.black.withOpacity(0.1),
+    return InkWell(
+      onTap: () {
+        Get.toNamed(
+          RouteName.viewBarangPage,
+          arguments: {
+            "data" : model
+          }
+        );
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 25),
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(color: Colors.black12.withAlpha(1), offset: Offset(1, 2)),
+          ],
+          border: BoxBorder.symmetric(
+            horizontal: BorderSide(
+              width: 0.5,
+              color: Colors.black.withOpacity(0.1),
+            ),
           ),
+          borderRadius: BorderRadius.circular(15),
+          color: Colors.white10,
         ),
-        borderRadius: BorderRadius.circular(15),
-        color: Colors.white10,
-      ),
-      height: 100,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            child: Row(
+        height: 100,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              child: Row(
+                children: [
+                  Container(
+                    child: Icon(Icons.monitor, size: 55, color: color),
+                  ),
+                  SizedBox(width: 20),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        model.nameTrBarang ?? "",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: const Color.fromARGB(255, 39, 39, 39),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(model.number ?? "", style: TextStyle(fontSize: 12)),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+      
+            Row(
               children: [
                 Container(
-                  child: Icon(Icons.monitor, size: 55, color: color),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: mapColor["color"],
+                  ),
+                  child: Text(
+                    model.idNameState?.name ?? "",
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: mapColor["font-color"],
+                    ),
+                  ),
                 ),
                 SizedBox(width: 20),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      model.nameTrBarang ?? "",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        color: const Color.fromARGB(255, 39, 39, 39),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(model.number ?? "", style: TextStyle(fontSize: 12)),
-                  ],
+                Container(
+                  child: Icon(
+                    size: 20,
+                    Icons.arrow_forward_ios_rounded,
+                    color: const Color.fromARGB(255, 43, 43, 43),
+                  ),
                 ),
               ],
             ),
-          ),
-
-          Row(
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: mapColor["color"],
-                ),
-                child: Text(
-                  model.idNameState?.name ?? "",
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                    color: mapColor["font-color"],
-                  ),
-                ),
-              ),
-              SizedBox(width: 20),
-              Container(
-                child: Icon(
-                  size: 20,
-                  Icons.arrow_forward_ios_rounded,
-                  color: const Color.fromARGB(255, 43, 43, 43),
-                ),
-              ),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
