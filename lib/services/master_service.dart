@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:notes_app/models/barang_model.dart';
 import 'package:notes_app/models/count_dashboard_barang_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:notes_app/models/custom_id_name.dart';
 import 'package:notes_app/models/dashboard_category_barang_model.dart';
 import 'package:notes_app/services/main_service.dart';
 
@@ -76,6 +77,32 @@ class MasterService extends MainService{
       print('AKU DONE MASEE ');
       List listdata = json.decode(data.body)["data"];
       final hasil = listdata.map((e) => BarangModel.fromJson(e)).toList();
+      return Right(hasil);
+    }else{
+      print("AKU GAGAL MASE");
+      return Left(data.body);
+    }
+
+    } catch (e) {
+      print(e.toString());
+     return Left("ERORR INTERNET LU"); 
+    }
+  }
+
+
+
+  Future<Either<String, List<CustomIdName>>> getCategory() async {
+    print("DESMANTU CEK MASUK SINI 1");
+    var uri = "$network/get-list-category";
+    try {
+    final data = await http.get(Uri.parse(uri));
+    print("data ?? ${data.statusCode}" );
+    if (data.statusCode == 200) {
+      print('AKU DONE MASEE ');
+      List listdata = json.decode(data.body)["data"];
+      final hasil = listdata.map((e) => CustomIdName.fromJson(e)).toList();
+
+      print("DESMANTU CEKK HASIL >> ${hasil.map((e) => e.toJson(),)}");
       return Right(hasil);
     }else{
       print("AKU GAGAL MASE");

@@ -15,7 +15,8 @@ dependencies:
   http: ^1.6.0
   dartz: ^0.10.1
   shimmer: ^3.0.0
-  intl: ^0.20.3
+  intl: ^0.20.2
+  currency_text_input_formatter: ^2.3.1
 
 
 dev_dependencies:

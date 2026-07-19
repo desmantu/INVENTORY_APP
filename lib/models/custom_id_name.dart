@@ -18,4 +18,22 @@ class  CustomIdName {
       'id' : id,
       'name' : name,
     };}
+
+
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return super.toString();
+  }
+
+  @override
+bool operator ==(Object other) =>
+    identical(this, other) ||
+    other is CustomIdName &&
+        runtimeType == other.runtimeType &&
+        id == other.id;
+
+@override
+int get hashCode => id.hashCode;
 }
